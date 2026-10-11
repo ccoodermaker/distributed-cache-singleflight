@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: distributed-cache-singleflight
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
+      database: 0
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 2
+          max-wait: 3000ms
+
+# Redisson 自动装配读取 spring.data.redis，无需额外配置
+
+# 二级缓存自定义配置，对应 CacheProperties
+cache:
+  two-level:
+    local-max-size: 10000
+    local-ttl-seconds: 300
+    redis-ttl-seconds: 1800
+    local-lock-stripes: 1024
+    single-flight-timeout-seconds: 3
